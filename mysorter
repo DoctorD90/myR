@@ -1,0 +1,32 @@
+#mysorter
+# To sort element in a incoming set of data
+# xmat = incoming data
+# s = 1 [decreasing output (default)]
+# s = 0 [increasing output]
+
+mysorter <- function(xmat,s=1) {
+	if(s != 1){s=0}								# checking for decreasing input
+	rw=nrow(xmat)								# rows total
+	cl=ncol(xmat)								# cols total
+	M=matrix(c(0,0,0),nrow=1,ncol=3)			# initialize matrix
+	for(i in 1:rw) {							# for each row
+		for(j in 1:cl) {						# for each column
+			M=rbind(M,c(xmat[i,j],i,j))			# append data to matrix
+		}
+	}
+	df <- data.frame(M[-c(1),])					# create data.frame
+	names(df) <- c('val','r','c')				# settings headers
+	return(df[order(df$val,decreasing = s),])	# getting back order
+}
+
+# example1
+#a=matrix(c(1,4,4,5,6,6),2,3)
+# example2
+#a=matrix(runif(25,0,100),5,5)
+
+# output decreasing
+#mysorter(a)
+#mysorter(a,1)
+
+# output increasing
+#mysorter(a,0)
